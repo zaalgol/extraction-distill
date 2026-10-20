@@ -1,0 +1,1703 @@
+{
+ "model": "qwen3.6:27b",
+ "role": "agent_heavy",
+ "created_at": "2026-10-20T17:24:27+00:00",
+ "extractor": "extractor:llm@0.2.0",
+ "gold_sha256": "323524d796ec4fdfc51bd9609b61ab7913c8b5677bbc02da5934104562a940bc",
+ "totals": {
+  "entities": {
+   "tp": 111,
+   "fp": 10,
+   "fn": 2,
+   "precision": 0.917,
+   "recall": 0.982,
+   "f1": 0.949
+  },
+  "relations": {
+   "tp": 30,
+   "fp": 11,
+   "fn": 2,
+   "precision": 0.732,
+   "recall": 0.938,
+   "f1": 0.822
+  },
+  "events": {
+   "tp": 35,
+   "fp": 6,
+   "fn": 6,
+   "precision": 0.854,
+   "recall": 0.854,
+   "f1": 0.854
+  },
+  "quote_verification_rate": 1.0,
+  "relevance_accuracy": 1.0,
+  "seconds_per_doc": 31.3,
+  "errors": 0
+ },
+ "docs": [
+  {
+   "id": "en-claim",
+   "entities": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 9,
+   "quotes_verified": 9,
+   "relevant_ok": true,
+   "seconds": 80.5,
+   "errors": []
+  },
+  {
+   "id": "en-finance",
+   "entities": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 2,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.667,
+    "recall": 1.0,
+    "f1": 0.8
+   },
+   "events": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667
+   },
+   "quotes_total": 9,
+   "quotes_verified": 9,
+   "relevant_ok": true,
+   "seconds": 82.4,
+   "errors": []
+  },
+  {
+   "id": "ar-claim",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.667,
+    "f1": 0.8
+   },
+   "quotes_total": 6,
+   "quotes_verified": 6,
+   "relevant_ok": true,
+   "seconds": 50.4,
+   "errors": []
+  },
+  {
+   "id": "ru-arson",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 7,
+   "quotes_verified": 7,
+   "relevant_ok": true,
+   "seconds": 42.1,
+   "errors": []
+  },
+  {
+   "id": "fr-kidnap",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 1,
+    "precision": 0.5,
+    "recall": 0.5,
+    "f1": 0.5
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 29.5,
+   "errors": []
+  },
+  {
+   "id": "irrelevant",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 6.2,
+   "errors": []
+  },
+  {
+   "id": "denial",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.0,
+    "recall": 1.0,
+    "f1": 0.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 26.6,
+   "errors": []
+  },
+  {
+   "id": "meeting",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 29.3,
+   "errors": []
+  },
+  {
+   "id": "en-wallet-transfer",
+   "entities": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 7,
+   "quotes_verified": 7,
+   "relevant_ok": true,
+   "seconds": 60.0,
+   "errors": []
+  },
+  {
+   "id": "en-domain-infra",
+   "entities": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 6,
+   "quotes_verified": 6,
+   "relevant_ok": true,
+   "seconds": 40.0,
+   "errors": []
+  },
+  {
+   "id": "en-arrest-suspected",
+   "entities": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.0,
+    "recall": 1.0,
+    "f1": 0.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 6,
+   "quotes_verified": 6,
+   "relevant_ok": true,
+   "seconds": 37.6,
+   "errors": []
+  },
+  {
+   "id": "en-leader-reported",
+   "entities": {
+    "tp": 3,
+    "fp": 2,
+    "fn": 0,
+    "precision": 0.6,
+    "recall": 1.0,
+    "f1": 0.75
+   },
+   "relations": {
+    "tp": 2,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.667,
+    "recall": 1.0,
+    "f1": 0.8
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 8,
+   "quotes_verified": 8,
+   "relevant_ok": true,
+   "seconds": 44.9,
+   "errors": []
+  },
+  {
+   "id": "en-speculative-funding",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 3,
+   "quotes_verified": 3,
+   "relevant_ok": true,
+   "seconds": 19.0,
+   "errors": []
+  },
+  {
+   "id": "en-threat-video",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.667
+   },
+   "quotes_total": 3,
+   "quotes_verified": 3,
+   "relevant_ok": true,
+   "seconds": 18.2,
+   "errors": []
+  },
+  {
+   "id": "en-communications",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.0,
+    "recall": 1.0,
+    "f1": 0.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 34.9,
+   "errors": []
+  },
+  {
+   "id": "en-affiliate",
+   "entities": {
+    "tp": 2,
+    "fp": 1,
+    "fn": 1,
+    "precision": 0.667,
+    "recall": 0.667,
+    "f1": 0.667
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 1,
+    "precision": 0.5,
+    "recall": 0.5,
+    "f1": 0.5
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 5,
+   "quotes_verified": 5,
+   "relevant_ok": true,
+   "seconds": 31.1,
+   "errors": []
+  },
+  {
+   "id": "en-unclaimed-attack",
+   "entities": {
+    "tp": 1,
+    "fp": 2,
+    "fn": 0,
+    "precision": 0.333,
+    "recall": 1.0,
+    "f1": 0.5
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 25.5,
+   "errors": []
+  },
+  {
+   "id": "en-irrelevant-football",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 7.0,
+   "errors": []
+  },
+  {
+   "id": "en-irrelevant-takeover",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 5.9,
+   "errors": []
+  },
+  {
+   "id": "en-irrelevant-game",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 6.0,
+   "errors": []
+  },
+  {
+   "id": "en-designation",
+   "entities": {
+    "tp": 2,
+    "fp": 1,
+    "fn": 1,
+    "precision": 0.667,
+    "recall": 0.667,
+    "f1": 0.667
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.0,
+    "recall": 1.0,
+    "f1": 0.0
+   },
+   "quotes_total": 5,
+   "quotes_verified": 5,
+   "relevant_ok": true,
+   "seconds": 37.6,
+   "errors": []
+  },
+  {
+   "id": "en-charity-funds",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 32.9,
+   "errors": []
+  },
+  {
+   "id": "en-denial-member",
+   "entities": {
+    "tp": 2,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.667,
+    "recall": 1.0,
+    "f1": 0.8
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.0,
+    "recall": 1.0,
+    "f1": 0.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 5,
+   "quotes_verified": 5,
+   "relevant_ok": true,
+   "seconds": 29.4,
+   "errors": []
+  },
+  {
+   "id": "en-online-recruitment",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 5,
+   "quotes_verified": 5,
+   "relevant_ok": true,
+   "seconds": 35.9,
+   "errors": []
+  },
+  {
+   "id": "en-meeting-hotel",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 28.2,
+   "errors": []
+  },
+  {
+   "id": "en-manifesto",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 32.2,
+   "errors": []
+  },
+  {
+   "id": "en-headquarters",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 3,
+   "quotes_verified": 3,
+   "relevant_ok": true,
+   "seconds": 18.0,
+   "errors": []
+  },
+  {
+   "id": "en-arrest-wallet",
+   "entities": {
+    "tp": 4,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 1,
+    "precision": 0.5,
+    "recall": 0.5,
+    "f1": 0.5
+   },
+   "events": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 8,
+   "quotes_verified": 8,
+   "relevant_ok": true,
+   "seconds": 74.2,
+   "errors": []
+  },
+  {
+   "id": "ar-arrest",
+   "entities": {
+    "tp": 4,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.8,
+    "recall": 1.0,
+    "f1": 0.889
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 8,
+   "quotes_verified": 8,
+   "relevant_ok": true,
+   "seconds": 50.6,
+   "errors": []
+  },
+  {
+   "id": "ar-funding",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 33.6,
+   "errors": []
+  },
+  {
+   "id": "ar-denial",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 28.1,
+   "errors": []
+  },
+  {
+   "id": "ar-threat-channel",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.667
+   },
+   "quotes_total": 3,
+   "quotes_verified": 3,
+   "relevant_ok": true,
+   "seconds": 23.4,
+   "errors": []
+  },
+  {
+   "id": "ar-irrelevant",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 6.2,
+   "errors": []
+  },
+  {
+   "id": "ru-arrest",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 5,
+   "quotes_verified": 5,
+   "relevant_ok": true,
+   "seconds": 37.2,
+   "errors": []
+  },
+  {
+   "id": "ru-denial",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.0,
+    "recall": 1.0,
+    "f1": 0.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 6,
+   "quotes_verified": 6,
+   "relevant_ok": true,
+   "seconds": 45.3,
+   "errors": []
+  },
+  {
+   "id": "ru-infrastructure",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 5,
+   "quotes_verified": 5,
+   "relevant_ok": true,
+   "seconds": 50.6,
+   "errors": []
+  },
+  {
+   "id": "ru-irrelevant",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 6.5,
+   "errors": []
+  },
+  {
+   "id": "fr-arrest-leader",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 5,
+   "quotes_verified": 5,
+   "relevant_ok": true,
+   "seconds": 34.3,
+   "errors": []
+  },
+  {
+   "id": "fr-speculative",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 3,
+   "quotes_verified": 3,
+   "relevant_ok": true,
+   "seconds": 25.1,
+   "errors": []
+  },
+  {
+   "id": "fr-meeting",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 1,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 24.9,
+   "errors": []
+  },
+  {
+   "id": "es-claim",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.0,
+    "recall": 1.0,
+    "f1": 0.0
+   },
+   "events": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 5,
+   "quotes_verified": 5,
+   "relevant_ok": true,
+   "seconds": 46.1,
+   "errors": []
+  },
+  {
+   "id": "es-funding",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 29.2,
+   "errors": []
+  },
+  {
+   "id": "es-irrelevant",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 6.2,
+   "errors": []
+  },
+  {
+   "id": "he-arrest-suspected",
+   "entities": {
+    "tp": 3,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.857
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 6,
+   "quotes_verified": 6,
+   "relevant_ok": true,
+   "seconds": 42.8,
+   "errors": []
+  },
+  {
+   "id": "he-leader-channel",
+   "entities": {
+    "tp": 3,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 5,
+   "quotes_verified": 5,
+   "relevant_ok": true,
+   "seconds": 35.6,
+   "errors": []
+  },
+  {
+   "id": "he-irrelevant",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 6.1,
+   "errors": []
+  },
+  {
+   "id": "fa-claim",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 4,
+   "quotes_verified": 4,
+   "relevant_ok": true,
+   "seconds": 32.7,
+   "errors": []
+  },
+  {
+   "id": "fa-irrelevant",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 6.6,
+   "errors": []
+  },
+  {
+   "id": "tr-arrest",
+   "entities": {
+    "tp": 3,
+    "fp": 1,
+    "fn": 0,
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.857
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 6,
+   "quotes_verified": 6,
+   "relevant_ok": true,
+   "seconds": 40.0,
+   "errors": []
+  },
+  {
+   "id": "tr-irrelevant",
+   "entities": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 0,
+   "quotes_verified": 0,
+   "relevant_ok": true,
+   "seconds": 6.5,
+   "errors": []
+  },
+  {
+   "id": "de-threat",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.667
+   },
+   "quotes_total": 3,
+   "quotes_verified": 3,
+   "relevant_ok": true,
+   "seconds": 21.0,
+   "errors": []
+  },
+  {
+   "id": "de-affiliate",
+   "entities": {
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "relations": {
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "events": {
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+   },
+   "quotes_total": 3,
+   "quotes_verified": 3,
+   "relevant_ok": true,
+   "seconds": 23.0,
+   "errors": []
+  }
+ ]
+}

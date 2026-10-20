@@ -81,4 +81,19 @@ fast as the 14B. Relation precision is the main weakness to fix.
     kernels; else it JIT-compiles and wants nvcc), and a `__main__` guard in scripts that
     create `LLM(...)` (WSL forces multiprocessing `spawn`).
 - git initialized.
-- Next: step 1 (synthetic documents, on Windows).
+- WSL memory raised to 26 GB + 16 GB swap (`%UserProfile%\.wslconfig`): merging/quantizing
+  the 8B holds the 16.4 GB BF16 model in RAM. Third venv `~/venvs/distill-quant`
+  (llm-compressor 0.14). Detached WSL jobs: `scripts/wsl_job.ps1 <name>` runs
+  `scripts/jobs/<name>.sh` (plain `nohup` from a short `wsl.exe -e` call can die).
+- Step 1 done (2026-10-20): 1,280 docs in `~/distill-data/docs.jsonl` (1,400 + 600 ar/fa/he
+  top-up; 720 rejected for script drift, leaked writer notes or 1 gold name). Hebrew stays
+  thin (45): the 14B mixes Arabic letters into Hebrew.
+- Step 2 done: `distill/leakage.py` + `tests/test_leakage.py` (passes on docs.jsonl).
+- Step 3 running since 2026-10-20 23:10: `distill/label.py` -> `logs/label.log`, ~48 s/doc,
+  ~17 h. Resumable. Two workers gave no speedup (27B is partly CPU-offloaded).
+- Prepared, not yet run on real data: `train/train_sft.py`, `serve/merge_lora.py`,
+  `serve/quantize.py`, `serve/serve.sh`, `bench/bench_serving.py`, `distill/run_eval.py`,
+  `results/build_report.py`. Base FP8 done: `~/distill-data/models/qwen3-8b-base-fp8`.
+- osint-agents (uncommitted, on top of the user's own uncommitted edits): `osint eval
+  extraction --backend/--base-url`, and the openai backend now sends `max_tokens`.
+- Next: train 8B -> merge -> FP8 + AWQ -> eval base/distilled -> bench -> README.

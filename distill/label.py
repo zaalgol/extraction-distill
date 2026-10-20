@@ -54,7 +54,7 @@ def unverified_quotes(text: str, out: dict) -> list[str]:
     return [q for q in quotes if not q or qi.find(q) is None]
 
 
-async def run(limit: int | None) -> None:
+async def run(limit: int | None, context: int | None, workers: int) -> None:
     d = data_dir()
     docs = [json.loads(x) for x in (d / "docs.jsonl").read_text(encoding="utf-8").splitlines()
             if x.strip()]
@@ -69,8 +69,11 @@ async def run(limit: int | None) -> None:
 
     app = App()
     cfg = get_models_config().local
+    if context:
+        # Only the KV-cache size: a smaller one keeps more of the 27B on the GPU. Prompt,
+        # schema and sampling stay the production ones.
+        cfg.roles[ROLE].context = context
     app.settings.extraction.llm_role = ROLE
-    llm = RecordingLLM(cfg, slots=1)
     # The writer (14B) may still be loaded; two models don't fit in 16 GB.
     async with httpx.AsyncClient() as c:
         for m in {r.model for r in cfg.roles.values()} - {cfg.roles[ROLE].model}:
@@ -78,52 +81,69 @@ async def run(limit: int | None) -> None:
                          json={"model": m, "keep_alive": 0})
     ext = LLMExtractor()
     ext.role = ROLE
-    ctx = app.context(None, with_db=False, llm=llm)
-    t_start, kept = time.monotonic(), 0
-    try:
-        for i, doc in enumerate(todo, 1):
-            view = DocumentView(id=0, artifact_id=0, text=doc["text"],
-                                investigation_focus=doc["focus"])
-            llm.calls.clear()
-            t0 = time.monotonic()
-            status, problems, out = "ok", [], None
-            try:
-                await ext.extract(view, ctx)
-                messages, content, _ = llm.calls[-1]
-                out = json.loads(content)
-                if len(llm.calls) > 1:
-                    status = "retried"
-                elif bad := unverified_quotes(doc["text"], out):
-                    status, problems = "bad_quotes", bad[:5]
-            except Exception as e:  # noqa: BLE001 - a failed document is just not kept
-                status, problems = "error", [f"{type(e).__name__}: {e}"[:300]]
-            secs = round(time.monotonic() - t0, 1)
-            rec = {"id": doc["id"], "lang": doc["lang"], "scenario": doc["scenario"],
-                   "status": status, "problems": problems, "seconds": secs,
-                   "attempts": len(llm.calls), "teacher": cfg.roles[ROLE].model, "output": out}
-            with raw_p.open("a", encoding="utf-8") as f:
-                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
-            if status == "ok":
-                kept += 1
-                sys_msg, user_msg = llm.calls[0][0][:2]
-                answer = json.dumps(out, ensure_ascii=False, separators=(",", ":"))
-                sft = {"id": doc["id"], "lang": doc["lang"], "scenario": doc["scenario"],
-                       "messages": [sys_msg, user_msg,
-                                    {"role": "assistant", "content": answer}]}
-                with sft_p.open("a", encoding="utf-8") as f:
-                    f.write(json.dumps(sft, ensure_ascii=False) + "\n")
-            el = time.monotonic() - t_start
-            print(f"{i}/{len(todo)} {doc['id']} {doc['lang']} {status} {secs}s  "
-                  f"kept {kept}  eta {el / i * (len(todo) - i) / 3600:.1f} h", flush=True)
-    finally:
-        await llm.aclose()
+    queue: asyncio.Queue = asyncio.Queue()
+    for doc in todo:
+        queue.put_nowait(doc)
+    t_start, n_done, kept = time.monotonic(), 0, 0
+
+    async def label_one(doc: dict, llm: RecordingLLM, ctx) -> None:
+        nonlocal n_done, kept
+        view = DocumentView(id=0, artifact_id=0, text=doc["text"],
+                            investigation_focus=doc["focus"])
+        llm.calls.clear()
+        t0 = time.monotonic()
+        status, problems, out = "ok", [], None
+        try:
+            await ext.extract(view, ctx)
+            out = json.loads(llm.calls[-1][1])
+            if len(llm.calls) > 1:
+                status = "retried"
+            elif bad := unverified_quotes(doc["text"], out):
+                status, problems = "bad_quotes", bad[:5]
+        except Exception as e:  # noqa: BLE001 - a failed document is just not kept
+            status, problems = "error", [f"{type(e).__name__}: {e}"[:300]]
+        secs = round(time.monotonic() - t0, 1)
+        rec = {"id": doc["id"], "lang": doc["lang"], "scenario": doc["scenario"],
+               "status": status, "problems": problems, "seconds": secs,
+               "attempts": len(llm.calls), "teacher": cfg.roles[ROLE].model, "output": out}
+        with raw_p.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        if status == "ok":
+            kept += 1
+            sys_msg, user_msg = llm.calls[0][0][:2]
+            answer = json.dumps(out, ensure_ascii=False, separators=(",", ":"))
+            sft = {"id": doc["id"], "lang": doc["lang"], "scenario": doc["scenario"],
+                   "messages": [sys_msg, user_msg, {"role": "assistant", "content": answer}]}
+            with sft_p.open("a", encoding="utf-8") as f:
+                f.write(json.dumps(sft, ensure_ascii=False) + "\n")
+        n_done += 1
+        el = time.monotonic() - t_start
+        print(f"{n_done}/{len(todo)} {doc['id']} {doc['lang']} {status} {secs}s  kept {kept}  "
+              f"eta {el / n_done * (len(todo) - n_done) / 3600:.1f} h", flush=True)
+
+    async def worker() -> None:
+        # one LocalLLM per worker, so each records only its own document's calls
+        llm = RecordingLLM(cfg, slots=1)
+        ctx = app.context(None, with_db=False, llm=llm)
+        try:
+            while not queue.empty():
+                await label_one(queue.get_nowait(), llm, ctx)
+        finally:
+            await llm.aclose()
+
+    await asyncio.gather(*(worker() for _ in range(workers)))
     print("DONE", flush=True)
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=None)
-    asyncio.run(run(ap.parse_args().limit))
+    ap.add_argument("--context", type=int, default=None,
+                    help="override the role's num_ctx (Ollama KV cache size)")
+    ap.add_argument("--workers", type=int, default=2,
+                    help="concurrent documents (Ollama's OLLAMA_NUM_PARALLEL is 2)")
+    a = ap.parse_args()
+    asyncio.run(run(a.limit, a.context, a.workers))
 
 
 if __name__ == "__main__":
