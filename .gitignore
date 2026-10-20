@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+logs/
+data/
+outputs/
+env_check.txt
+*.bundle
+.venv/
+unsloth_compiled_cache/
