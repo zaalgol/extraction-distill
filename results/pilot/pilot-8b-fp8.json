@@ -1,0 +1,54 @@
+{
+ "model": "pilot-8b-fp8",
+ "label": "pilot",
+ "weights": "FP8 W8A8",
+ "prompts": 52,
+ "created_at": "2026-10-21T01:11:50",
+ "levels": [
+  {
+   "concurrency": 1,
+   "requests": 52,
+   "wall_s": 164.8,
+   "latency_p50_s": 2.98,
+   "latency_p95_s": 5.49,
+   "ttft_p50_s": 0.029,
+   "output_tok_per_s": 82.6,
+   "per_request_decode_tok_per_s": 84.9,
+   "mean_output_tokens": 262,
+   "mean_input_tokens": 760,
+   "requests_per_s": 0.32,
+   "valid_json": 52,
+   "gpu_mem_peak_mib": 14566
+  },
+  {
+   "concurrency": 4,
+   "requests": 52,
+   "wall_s": 42.4,
+   "latency_p50_s": 3.11,
+   "latency_p95_s": 5.26,
+   "ttft_p50_s": 0.045,
+   "output_tok_per_s": 309.7,
+   "per_request_decode_tok_per_s": 82.1,
+   "mean_output_tokens": 252,
+   "mean_input_tokens": 760,
+   "requests_per_s": 1.23,
+   "valid_json": 52,
+   "gpu_mem_peak_mib": 14566
+  },
+  {
+   "concurrency": 16,
+   "requests": 208,
+   "wall_s": 52.3,
+   "latency_p50_s": 3.74,
+   "latency_p95_s": 7.44,
+   "ttft_p50_s": 0.058,
+   "output_tok_per_s": 1047.9,
+   "per_request_decode_tok_per_s": 69.6,
+   "mean_output_tokens": 264,
+   "mean_input_tokens": 760,
+   "requests_per_s": 3.97,
+   "valid_json": 208,
+   "gpu_mem_peak_mib": 14566
+  }
+ ]
+}

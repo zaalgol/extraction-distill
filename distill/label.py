@@ -54,14 +54,17 @@ def unverified_quotes(text: str, out: dict) -> list[str]:
     return [q for q in quotes if not q or qi.find(q) is None]
 
 
-async def run(limit: int | None, context: int | None, workers: int) -> None:
+async def run(limit: int | None, context: int | None, workers: int,
+              retry_errors: bool = False) -> None:
     d = data_dir()
     docs = [json.loads(x) for x in (d / "docs.jsonl").read_text(encoding="utf-8").splitlines()
             if x.strip()]
     raw_p, sft_p = d / "labels_raw.jsonl", d / "sft.jsonl"
     done = set()
     if raw_p.exists():
-        done = {json.loads(x)["id"] for x in raw_p.read_text(encoding="utf-8").splitlines() if x}
+        # "error" = the call itself failed (e.g. Ollama's runner crashed): worth another try
+        done = {r["id"] for r in map(json.loads, raw_p.read_text(encoding="utf-8").splitlines())
+                if not (retry_errors and r["status"] == "error")}
     # hashed order mixes the top-up languages in, so a run stopped early is still balanced
     todo = sorted((x for x in docs if x["id"] not in done),
                   key=lambda x: hashlib.sha256(x["id"].encode()).hexdigest())[:limit]
@@ -142,8 +145,10 @@ def main() -> None:
                     help="override the role's num_ctx (Ollama KV cache size)")
     ap.add_argument("--workers", type=int, default=2,
                     help="concurrent documents (Ollama's OLLAMA_NUM_PARALLEL is 2)")
+    ap.add_argument("--retry-errors", action="store_true",
+                    help="label again the documents whose call failed")
     a = ap.parse_args()
-    asyncio.run(run(a.limit, a.context, a.workers))
+    asyncio.run(run(a.limit, a.context, a.workers, a.retry_errors))
 
 
 if __name__ == "__main__":

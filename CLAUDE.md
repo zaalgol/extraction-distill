@@ -91,9 +91,16 @@ fast as the 14B. Relation precision is the main weakness to fix.
 - Step 2 done: `distill/leakage.py` + `tests/test_leakage.py` (passes on docs.jsonl).
 - Step 3 running since 2026-10-20 23:10: `distill/label.py` -> `logs/label.log`, ~48 s/doc,
   ~17 h. Resumable. Two workers gave no speedup (27B is partly CPU-offloaded).
-- Prepared, not yet run on real data: `train/train_sft.py`, `serve/merge_lora.py`,
-  `serve/quantize.py`, `serve/serve.sh`, `bench/bench_serving.py`, `distill/run_eval.py`,
-  `results/build_report.py`. Base FP8 done: `~/distill-data/models/qwen3-8b-base-fp8`.
+- Pilot (2026-10-21, labeling paused 1 h): whole path verified on the first 97 labels:
+  train (8B, 12 steps, ~13 s/step, 9.4 GB VRAM) -> merge (252 matrices) -> FP8 -> vLLM
+  (8.8 GiB weights, 27.7k-token KV cache) -> osint eval from Windows via localhost:8000 ->
+  bench. Pilot: relations F1 0.65, events 0.16 (event `time` mostly null: undertrained),
+  3.2 s/doc. Results filed under `results/pilot/`, not reported. Fixed: transformers 5 has
+  no `warmup_ratio`/`group_by_length` (use `warmup_steps=0.05`,
+  `train_sampling_strategy`); vLLM must run in the foreground of a detached job
+  (`scripts/jobs/serve_*.sh`).
+- Labeling resumed 01:15; Ollama's runner crashed once on reload right after vLLM (1 doc
+  `error`). At the end: `python -m distill.label --retry-errors`.
 - osint-agents (uncommitted, on top of the user's own uncommitted edits): `osint eval
   extraction --backend/--base-url`, and the openai backend now sends `max_tokens`.
 - Next: train 8B -> merge -> FP8 + AWQ -> eval base/distilled -> bench -> README.

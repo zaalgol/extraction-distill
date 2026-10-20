@@ -94,9 +94,11 @@ def main() -> None:
         output_dir=str(out), num_train_epochs=a.epochs, learning_rate=a.lr,
         per_device_train_batch_size=a.batch, per_device_eval_batch_size=a.batch,
         gradient_accumulation_steps=a.grad_accum, lr_scheduler_type="cosine",
-        warmup_ratio=0.05, weight_decay=0.0, optim="adamw_8bit", bf16=True,
+        warmup_steps=0.05,   # < 1 means a fraction of all steps (transformers 5)
+        weight_decay=0.0, optim="adamw_8bit", bf16=True,
         logging_steps=2, eval_strategy="steps", eval_steps=max(1, steps_per_epoch // 3),
-        save_strategy="epoch", save_total_limit=3, group_by_length=True,
+        save_strategy="epoch", save_total_limit=3,
+        train_sampling_strategy="group_by_length",
         report_to="none", seed=a.seed)
     trainer = Trainer(model=model, args=args, train_dataset=Dataset.from_list(train),
                       eval_dataset=Dataset.from_list(val),
