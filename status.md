@@ -118,10 +118,37 @@ tracing test).
 A stage whose output already exists is skipped, so rerunning the driver picks up where it
 stopped.
 
-## Left for me after that
-- Fill in the README: results tables, limitations (small gold set, synthetic data written by
-  a 14B, teacher bias, thin Hebrew), and the CV line.
-- Add the student rows to osint-agents' `evals/extraction/RESULTS.md` (`osint eval report`).
+## Remaining to finish (checklist)
+
+Automatic (the driver):
+- [ ] Labeling finishes: 1,280 documents (~16.5 h from 01:27).
+- [ ] Retry the failed labels; the leakage test passes on `sft.jsonl`.
+- [ ] Step 4: train the Qwen3-8B student; loss curves and settings saved to
+      `results/train/qwen3-8b/`.
+- [ ] Step 5: merge it, then make the FP8 and AWQ versions.
+- [ ] Train and merge the Qwen3-4B student (optional extra).
+- [ ] Step 6: osint eval for 8B distilled FP8, 8B base FP8, 8B distilled AWQ, 4B distilled.
+- [ ] Step 7: serving benchmark for the same four models.
+- [ ] Build `results/RESULTS.md`.
+
+Manual (me, after `ALL DONE`):
+- [ ] Check the results:
+  - Relation F1 must be well above 0.55 and speed at least the 14B's (CLAUDE.md goal).
+  - Events F1 should have recovered from the pilot's 0.16.
+  - If not, find the cause before reporting. Likely knobs: more epochs or data, or
+    rebalancing toward the failing cases.
+- [ ] Rerun anything that failed (for example, if AWQ fails, fix it and rerun the driver; it
+      skips finished stages).
+- [ ] Step 6 (rest): add the student rows to osint-agents' `evals/extraction/RESULTS.md` with
+      `osint eval report`.
+- [ ] Step 8: finish the README:
+  - results tables from `results/RESULTS.md` and the loss curve;
+  - limitations: 52-document gold set, synthetic training data written by a 14B, the
+    student inherits the teacher's biases, thin Hebrew, Ollama vs vLLM speed comparison;
+  - a one-line CV summary.
+- [ ] Update the Status section in `CLAUDE.md`, commit `results/` and the README.
+- [ ] Hand-off: osint-agents changes (`--backend/--base-url`, `max_tokens`) are still
+      uncommitted in that repo, next to your own edits; you decide whether to commit them.
 
 ## For you
 - Delete the stray `C:\c` folder. I created it by mistake with a wrong path, and a safety
