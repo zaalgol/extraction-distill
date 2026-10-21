@@ -3,16 +3,21 @@
 A Windows-side driver (Ollama, osint's eval and the WSL jobs are all reachable from here),
 started detached so it outlives any terminal:
 
-    Start-Process -WindowStyle Hidden cmd -ArgumentList '/c python scripts\\after_labeling.py > logs\\after_labeling.log 2>&1'
+    Start-Process -WindowStyle Hidden cmd -ArgumentList `
+      '/c python scripts\\after_labeling.py [--no-wait] > logs\\after_labeling.log 2>&1'
 
-Order: retry failed labels -> leakage test -> train/merge/quantize (8B, then 4B) -> for
-every model: serve with vLLM, osint eval, serving benchmark -> results/RESULTS.md. Each
+--no-wait: labeling was stopped early, so train on sft.jsonl as it is.
+
+Order: retry failed labels -> leakage test -> train/merge/FP8 of the 8B -> serve, osint
+eval and serving benchmark for the 8B distilled and base FP8 -> AWQ and 4B (optional) and
+their eval/benchmark -> results/RESULTS.md. Each
 stage is skipped if its output already exists, so a rerun picks up where it stopped. A
 failed model is logged and skipped; the others still run.
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import subprocess
 import sys
@@ -104,32 +109,8 @@ def done_eval(name: str) -> bool:
     return any((REPO / "results" / "eval").glob(f"extraction-{name}-20*.json"))
 
 
-def main() -> None:
-    label_log = REPO / "logs" / "label.log"
-    while True:
-        tail = label_log.read_text(encoding="utf-8", errors="replace")[-3000:]
-        if tail.rstrip().endswith("DONE"):
-            break
-        if "Traceback" in tail:
-            sys.exit("labeling crashed: see logs/label.log")
-        time.sleep(300)
-    log("labeling finished")
-    retried = REPO / "logs" / "after_labeling.retried"
-    if not retried.exists():
-        run([*UV, "-m", "distill.label", "--retry-errors"])
-        retried.touch()
-    if not run([*UV, "-m", "pytest", "-q", "tests"]):
-        sys.exit("leakage test failed: not training on this data")
-    unload_ollama()
-
-    if not wsl_exists("~/distill-data/models/qwen3-8b-distill-fp8/config.json"):
-        wsl_job("train_8b")
-    if not wsl_exists("~/distill-data/models/qwen3-8b-distill-awq/config.json"):
-        wsl_job("quant_awq")
-    if not wsl_exists("~/distill-data/models/qwen3-4b-distill/config.json"):
-        wsl_job("train_4b")
-
-    for name, path, label, weights in MODELS:
+def evaluate(models) -> None:
+    for name, path, label, weights in models:
         if not wsl_exists(f"{path}/config.json"):
             log(f"skip {name}: no checkpoint")
             continue
@@ -144,6 +125,42 @@ def main() -> None:
              f"python bench/bench_serving.py --model {name} --label '{label}' "
              f"--weights '{weights}'"])
         stop_vllm()
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--no-wait", action="store_true",
+                    help="labeling was stopped early: use sft.jsonl as it is (no DONE in "
+                         "label.log, no retry of failed labels)")
+    a = ap.parse_args()
+    if not a.no_wait:
+        label_log = REPO / "logs" / "label.log"
+        while True:
+            tail = label_log.read_text(encoding="utf-8", errors="replace")[-3000:]
+            if tail.rstrip().endswith("DONE"):
+                break
+            if "Traceback" in tail:
+                sys.exit("labeling crashed: see logs/label.log")
+            time.sleep(300)
+        log("labeling finished")
+        retried = REPO / "logs" / "after_labeling.retried"
+        if not retried.exists():
+            run([*UV, "-m", "distill.label", "--retry-errors"])
+            retried.touch()
+    if not run([*UV, "-m", "pytest", "-q", "tests"]):
+        sys.exit("leakage test failed: not training on this data")
+    unload_ollama()
+
+    # The required pair (distilled vs base 8B, FP8) first; AWQ and the 4B are extras whose
+    # failure is logged and skipped.
+    if not wsl_exists("~/distill-data/models/qwen3-8b-distill-fp8/config.json"):
+        wsl_job("train_8b")
+    evaluate(MODELS[:2])
+    if not wsl_exists("~/distill-data/models/qwen3-8b-distill-awq/config.json"):
+        wsl_job("quant_awq")
+    if not wsl_exists("~/distill-data/models/qwen3-4b-distill/config.json"):
+        wsl_job("train_4b")
+    evaluate(MODELS[2:])
 
     run(["uv", "run", "--project", str(OSINT), "--with", "matplotlib", "python",
          "results/build_report.py"])
