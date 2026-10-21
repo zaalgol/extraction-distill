@@ -1,0 +1,54 @@
+{
+ "model": "qwen3-4b-distill",
+ "label": "Qwen3-4B distilled",
+ "weights": "BF16",
+ "prompts": 52,
+ "created_at": "2026-10-21T13:27:54",
+ "levels": [
+  {
+   "concurrency": 1,
+   "requests": 52,
+   "wall_s": 131.8,
+   "latency_p50_s": 2.5,
+   "latency_p95_s": 5.12,
+   "ttft_p50_s": 0.029,
+   "output_tok_per_s": 86.8,
+   "per_request_decode_tok_per_s": 89.5,
+   "mean_output_tokens": 220,
+   "mean_input_tokens": 760,
+   "requests_per_s": 0.39,
+   "valid_json": 52,
+   "gpu_mem_peak_mib": 15272
+  },
+  {
+   "concurrency": 4,
+   "requests": 52,
+   "wall_s": 34.8,
+   "latency_p50_s": 2.63,
+   "latency_p95_s": 5.35,
+   "ttft_p50_s": 0.04,
+   "output_tok_per_s": 324.1,
+   "per_request_decode_tok_per_s": 85.6,
+   "mean_output_tokens": 217,
+   "mean_input_tokens": 760,
+   "requests_per_s": 1.49,
+   "valid_json": 52,
+   "gpu_mem_peak_mib": 15272
+  },
+  {
+   "concurrency": 16,
+   "requests": 208,
+   "wall_s": 42.0,
+   "latency_p50_s": 3.1,
+   "latency_p95_s": 6.35,
+   "ttft_p50_s": 0.055,
+   "output_tok_per_s": 1080.3,
+   "per_request_decode_tok_per_s": 73.0,
+   "mean_output_tokens": 218,
+   "mean_input_tokens": 760,
+   "requests_per_s": 4.95,
+   "valid_json": 208,
+   "gpu_mem_peak_mib": 15272
+  }
+ ]
+}

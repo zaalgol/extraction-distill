@@ -1,0 +1,54 @@
+{
+ "model": "qwen3-8b-distill-fp8",
+ "label": "Qwen3-8B distilled",
+ "weights": "FP8 W8A8",
+ "prompts": 52,
+ "created_at": "2026-10-21T13:01:03",
+ "levels": [
+  {
+   "concurrency": 1,
+   "requests": 52,
+   "wall_s": 155.8,
+   "latency_p50_s": 2.96,
+   "latency_p95_s": 5.44,
+   "ttft_p50_s": 0.03,
+   "output_tok_per_s": 82.9,
+   "per_request_decode_tok_per_s": 85.3,
+   "mean_output_tokens": 248,
+   "mean_input_tokens": 760,
+   "requests_per_s": 0.33,
+   "valid_json": 52,
+   "gpu_mem_peak_mib": 15194
+  },
+  {
+   "concurrency": 4,
+   "requests": 52,
+   "wall_s": 41.3,
+   "latency_p50_s": 3.13,
+   "latency_p95_s": 5.62,
+   "ttft_p50_s": 0.043,
+   "output_tok_per_s": 312.3,
+   "per_request_decode_tok_per_s": 82.3,
+   "mean_output_tokens": 248,
+   "mean_input_tokens": 760,
+   "requests_per_s": 1.26,
+   "valid_json": 52,
+   "gpu_mem_peak_mib": 15194
+  },
+  {
+   "concurrency": 16,
+   "requests": 208,
+   "wall_s": 49.6,
+   "latency_p50_s": 3.69,
+   "latency_p95_s": 7.68,
+   "ttft_p50_s": 0.058,
+   "output_tok_per_s": 1040.5,
+   "per_request_decode_tok_per_s": 70.6,
+   "mean_output_tokens": 248,
+   "mean_input_tokens": 760,
+   "requests_per_s": 4.2,
+   "valid_json": 208,
+   "gpu_mem_peak_mib": 15194
+  }
+ ]
+}

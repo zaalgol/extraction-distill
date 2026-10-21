@@ -99,8 +99,14 @@ fast as the 14B. Relation precision is the main weakness to fix.
   no `warmup_ratio`/`group_by_length` (use `warmup_steps=0.05`,
   `train_sampling_strategy`); vLLM must run in the foreground of a detached job
   (`scripts/jobs/serve_*.sh`).
-- Labeling resumed 01:15; Ollama's runner crashed once on reload right after vLLM (1 doc
-  `error`). At the end: `python -m distill.label --retry-errors`.
-- osint-agents (uncommitted, on top of the user's own uncommitted edits): `osint eval
-  extraction --backend/--base-url`, and the openai backend now sends `max_tokens`.
-- Next: train 8B -> merge -> FP8 + AWQ -> eval base/distilled -> bench -> README.
+- Labeling stopped by the user at 790/1,280 docs (RAM): final set 753 examples (665 train /
+  88 val). Driver run with `scripts/after_labeling.py --no-wait --skip quant_awq` (AWQ:
+  GPU OOM in calibration; optional, skipped).
+- Fixed: `serve.sh` expands `~` (wsl.exe -e passes no shell). Events F1 0.26 -> 0.79 after
+  storing the SFT answers in schema key order (`distill/schema_order.py`): vLLM's xgrammar
+  emits schema order, the teacher (Ollama) wrote `quote` before `time`. Keep
+  `tests/test_schema_order.py` green before any training.
+- Done 2026-10-21: 8B distilled FP8 relations 0.76 / events 0.79 / 3.0 s/doc; 4B BF16
+  0.74 / 0.76 / 2.5 s/doc; base 8B 0.54 / 0.73 / 7.9 s/doc. README, `results/RESULTS.md`
+  and osint's `evals/extraction/RESULTS.md` (uncommitted there) updated. Pushed to
+  https://github.com/zaalgol/extraction-distill.
