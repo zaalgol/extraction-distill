@@ -5,7 +5,8 @@
 # Thinking is off by default (osint's Ollama path sends think=false too); JSON-schema guided
 # decoding comes from each request's response_format. One GPU job at a time.
 set -euo pipefail
-MODEL=$1; NAME=$2; shift 2
+# wsl.exe -e passes arguments without a shell, so a leading ~ arrives unexpanded
+MODEL=${1/#\~/$HOME}; NAME=$2; shift 2
 P=/mnt/c/code/extraction-distill
 . "$HOME/venvs/distill-serve/bin/activate"
 exec vllm serve "$MODEL" --served-model-name "$NAME" --host 0.0.0.0 --port 8000 \

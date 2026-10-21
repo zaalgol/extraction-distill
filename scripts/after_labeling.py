@@ -132,6 +132,8 @@ def main() -> None:
     ap.add_argument("--no-wait", action="store_true",
                     help="labeling was stopped early: use sft.jsonl as it is (no DONE in "
                          "label.log, no retry of failed labels)")
+    ap.add_argument("--skip", nargs="*", default=[],
+                    help="optional jobs not to run, e.g. quant_awq after it failed")
     a = ap.parse_args()
     if not a.no_wait:
         label_log = REPO / "logs" / "label.log"
@@ -156,10 +158,9 @@ def main() -> None:
     if not wsl_exists("~/distill-data/models/qwen3-8b-distill-fp8/config.json"):
         wsl_job("train_8b")
     evaluate(MODELS[:2])
-    if not wsl_exists("~/distill-data/models/qwen3-8b-distill-awq/config.json"):
-        wsl_job("quant_awq")
-    if not wsl_exists("~/distill-data/models/qwen3-4b-distill/config.json"):
-        wsl_job("train_4b")
+    for job, ckpt in (("quant_awq", "qwen3-8b-distill-awq"), ("train_4b", "qwen3-4b-distill")):
+        if job not in a.skip and not wsl_exists(f"~/distill-data/models/{ckpt}/config.json"):
+            wsl_job(job)
     evaluate(MODELS[2:])
 
     run(["uv", "run", "--project", str(OSINT), "--with", "matplotlib", "python",
